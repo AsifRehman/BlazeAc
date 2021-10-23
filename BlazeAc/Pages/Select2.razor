@@ -1,0 +1,26 @@
+﻿@page "/select2"
+@inject IJSRuntime js
+
+<h3>Select2</h3>
+<button class="btn btn-outline-primary btn-sm" onkeydown="abc.focus();">Select Abc</button>
+<input type="text" id="abc" value="asif" />
+<select class="select2-single" name="state1" id="state1">
+    <option value="OK">OKLAHOMA</option>
+    <option value="AB">ABC</option>
+    <option value="XY">XYZ</option>
+</select>
+<select class="select2-single" name="state">
+    <option value="AL">Alabama</option>
+    <option value="WY">Wyoming</option>
+    <option value="OH">Ohama</option>
+</select>
+@code {
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            js.InvokeVoidAsync("registerSelect2");
+        js.InvokeVoidAsync("state1.focus();");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+}
