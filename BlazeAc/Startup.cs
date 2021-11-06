@@ -34,6 +34,7 @@ namespace BlazeAc
             services.AddSingleton<WeatherForecastService>();
             services.AddMudServices();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultCon")));
+            services.AddDbContext<GreyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("GreyCon")));
             services.AddControllersWithViews();
             services.AddScoped<ProductCategService>();
             services.AddScoped<ProductTypeService>();

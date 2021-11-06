@@ -9,3 +9,13 @@ public class ApplicationDbContext : DbContext
     public DbSet<ProductCateg> ProductCategs { get; set; }
     public DbSet<ProductType> ProductTypes { get; set; }
 }
+
+
+public class GreyDbContext : DbContext
+{
+    public GreyDbContext(DbContextOptions<GreyDbContext> options) : base(options)
+    {
+    }
+    public DbSet<ProductCateg> ProductCategs { get; set; }
+    public DbSet<ProductType> ProductTypes { get; set; }
+}

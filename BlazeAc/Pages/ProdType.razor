@@ -1,4 +1,5 @@
 ﻿@page "/pt"
+@page "/prodtype"
 @using BlazeAc.Data
 @inject ProductTypeService typeService
 @inject ProductCategService categService
@@ -10,14 +11,12 @@
 <MudCard Elevation="25">
     <MudCardHeader>
         <CardHeaderContent>
-            <MudText Typo="Typo.h6">Add / Edit Product Categories</MudText>
+            <MudText Typo="Typo.h6">Add / Edit Product Types</MudText>
         </CardHeaderContent>
     </MudCardHeader>
     <MudCardContent>
 
         <MudAutocomplete Value="categ" ValueChanged="@((ProductCateg emp) => SelectedPcChanged(emp))" Dense="true" T="ProductCateg" SearchFunc="SearchProdCateg" ToStringFunc="@(e=> e==null?null : $"{e.ProdCateg + " -" + e.ProdCategId.ToString()}")" />
-        @if (categ != null)
-            @categ.ProdCategId.ToString();
         <MudTextField @ref="idRef" @bind-Value="tbl.ProdCategId" Label="Categ Id" Variant="Variant.Text"
                       Margin="Margin.Normal"></MudTextField>
         <MudTextField @bind-Value="tbl.ProdTypeId" Label="Type Id" Variant="Variant.Text" Margin="Margin.Normal">
@@ -29,7 +28,7 @@
     </MudCardContent>
 </MudCard>
 <br />
-<MudTable Elevation="0" Items="Get()" Filter="new Func<ProductType, bool>(Search)" @bind-tbl="tbl">
+<MudTable Dense="true" Elevation="0" Items="Get()" Filter="new Func<ProductType, bool>(Search)" @bind-tbl="tbl">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Customers</MudText>
         <MudToolBarSpacer />
@@ -46,7 +45,7 @@
         <MudTd DataLabel="Prod Categ">@context.ProdTypeId</MudTd>
         <MudTd DataLabel="Prod Categ">@context.ProdType</MudTd>
         <MudTd DataLabel="">
-            <MudFab @onclick="@(()=>Edit(@context.ProdCategId))" Color="Color.Primary"
+            <MudFab @onclick="@(()=>Edit(@context.ProdTypeId))" Color="Color.Primary"
                     Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small" />
             <MudFab @onclick="@(()=>Delete(@context.ProdTypeId))" Color="Color.Secondary"
                     Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small" />
@@ -85,7 +84,7 @@
 
     public async Task Edit(int id)
     {
-        tbl = lists.FirstOrDefault(c => c.ProdCategId == id);
+        tbl = lists.FirstOrDefault(c => c.ProdTypeId == id);
         categ = new ProductCateg();
         categ.ProdCategId = tbl.ProdCategId;
         categ.ProdCateg = categs.Where(x => x.ProdCategId == categ.ProdCategId).FirstOrDefault().ProdCateg;
